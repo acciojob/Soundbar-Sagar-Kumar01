@@ -1,22 +1,22 @@
-//your JS code here. If required.
+let buttons = document.querySelectorAll(".btn");
+let stopBtn = document.querySelector(".stop");
 
-let btn = document.getElementById("buttons");
-let audio = new Audio("/click.mp3");
+buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        let sound = btn.dataset.sound;
+        stopAll();
 
-btn.addEventListener("click", (e) => {
-    if (e.target.classList.contains("stop")) {
-        stopSound();
-    } else {
-        playSound();
-    }
+        let audio = document.getElementById(sound);
+        audio.currentTime = 0;
+        audio.play();
+    });
 });
 
-function playSound() {
-    audio.currentTime = 0;
-    audio.play().catch(()=>{});   
-}
+stopBtn.addEventListener("click", stopAll);
 
-function stopSound() {
-    audio.pause();
-    audio.currentTime = 0;
+function stopAll() {
+    document.querySelectorAll("audio").forEach(a => {
+        a.pause();
+        a.currentTime = 0;
+    });
 }
